@@ -23,9 +23,42 @@ public class Main {
             case 1 -> {
             }
             case 2 -> {
-                System.out.println("Which symbol should player 1 start with?");
-                char symbol = sc.next().charAt(0);
+                char symbol = ' ';
+                boolean validInput = false;
+                System.out.println("Which symbol should player 1 start with? \"X\" or \"O\"?");
+                while (!validInput) {
+                    symbol = Character.toUpperCase(sc.next().charAt(0));
+                    if (symbol != 'X' && symbol != 'O') {
+                        System.out.println("The only valid symbols are \"X\" and \"O\"");
+                    } else {
+                        validInput = true;
+                    }
+                }
                 Game game = new Game(symbol);
+                while (true) {
+                    //Prints out the current state of the board´s layout.
+                    System.out.println(game.getBoardLayout());
+
+                    System.out.println("Current player, please enter your move (row and column): ");
+                    System.out.print("Row: ");
+                    int row = sc.nextInt();
+                    System.out.print("Column: ");
+                    int col = sc.nextInt();
+
+                    game.makeMove(row, col);
+
+                    if (game.hasPlayerWon()) {
+                        System.out.println(game.getBoardLayout());
+                        System.out.println("Game over! The winner is: " + game.getCurrentPlayer());
+                        break;
+                    }
+                    if (game.isBoardFull()) {
+                        System.out.println(game.getBoardLayout());
+                        System.out.println("Game over! It's a draw.");
+                        break;
+                    }
+                    game.switchPlayer();
+                }
             }
             case 3 -> {
                 System.out.println("""

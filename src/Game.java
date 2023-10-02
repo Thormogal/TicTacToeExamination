@@ -1,6 +1,21 @@
 public class Game {
-    private GameBoard board;
+    private final GameBoard board;
     private char currentPlayer;
+
+    public char getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public String getBoardLayout() {
+        return board.getBoardLayout();
+    }
+    public boolean isBoardFull() {
+        return board.isBoardFull();
+    }
+
+    public boolean hasPlayerWon() {
+        return board.hasPlayerWon(currentPlayer);
+    }
 
     public Game(char startingPlayer) {
         board = new GameBoard();
@@ -12,11 +27,10 @@ public class Game {
             System.out.println("The tile is already occupied. Try again");
         } else {
             board.setMove(row, col, currentPlayer);
-            switchPlayer();
         }
     }
 
-    private void switchPlayer() {
+    public void switchPlayer() {
         if (currentPlayer == 'X') {
             currentPlayer = 'O';
         } else {

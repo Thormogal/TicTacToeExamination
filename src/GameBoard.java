@@ -1,6 +1,9 @@
 public class GameBoard {
     private char[][] board;
-    private String boardLayout;
+    public String boardLayout;
+    public String getBoardLayout() {
+        return boardLayout;
+    }
 
     //Code to check if the tile is empty.
     public boolean isTileEmpty(int row, int col) {
@@ -19,10 +22,14 @@ public class GameBoard {
         return true;
     }
 
-    private boolean checkThree(char player, int row1, int col1, int row2, int col2, int row3, int col3) {
-        return board[row1][col1] == player && board[row2][col2] == player && board[row3][col3] == player;
+    private boolean checkThree(char player, int row0, int col0, int row1, int col1, int row2, int col2) {
+        return board[row0][col0] == player && board[row1][col1] == player && board[row2][col2] == player;
     }
 
+    //a boolean to check if the player has three of the same symbols in a row and hence wins the game.
+    //each code is used for different types of win-conditions.
+    //first is a row, second is a column, third is a diagonal from top left to bottom right
+    //and fourth from top right to bottom left.
     public boolean hasPlayerWon(char player) {
         for (int i = 0; i < 3; i++) {
             if (checkThree(player, i, 0, i, 1, i, 2)) {
@@ -55,7 +62,7 @@ public class GameBoard {
 
     /*The code used to produce a board.
      The first loop checks the rows and the second loop inside the first one checks the columns.
-     row 26: board [i][j] tells the program if it is X, O or empty cell.
+     "board [i][j]" tells the program if it is X, O or empty cell.
      */
     public void updateBoardLayout() {
         boardLayout = "             ______ ______ ______\n";
@@ -69,10 +76,11 @@ public class GameBoard {
         }
     }
 
-    public String getBoardLayout() {
-        return boardLayout;
-    }
-
+    /*  A method to implement a player's character placement in the board.
+        If the player types in "1, 1, X" it puts an X on row 1 and column 1.
+        The code then updates the board to the current condition with the X placed
+        instead of an empty tile.
+    */
     public void setMove(int row, int col, char player) {
         board[row][col] = player;
         updateBoardLayout();
