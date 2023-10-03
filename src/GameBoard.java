@@ -1,5 +1,5 @@
 public class GameBoard {
-    private char[][] board;
+    private final char[][] board;
     public String boardLayout;
     public String getBoardLayout() {
         return boardLayout;
@@ -43,10 +43,7 @@ public class GameBoard {
         if (checkThree(player, 0, 0, 1, 1, 2, 2)) {
             return true;
         }
-        if (checkThree(player, 0, 2, 1, 1, 2, 0)) {
-            return true;
-        }
-        return false;
+        return checkThree(player, 0, 2, 1, 1, 2, 0);
     }
 
     public GameBoard() {
@@ -77,7 +74,7 @@ public class GameBoard {
     }
 
     /*  A method to implement a player's character placement in the board.
-        If the player types in "1, 1, X" it puts an X on row 1 and column 1.
+        If the player types in "1, 1, X" it puts an X on row 1, column 1.
         The code then updates the board to the current condition with the X placed
         instead of an empty tile.
     */
