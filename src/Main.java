@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -16,13 +17,19 @@ public class Main {
         It is a tie if the field is totally cluttered with symbols without three of the
         same symbols in a row.
         First of all, please select one of the following by typing the corresponding number:
-        1. Play against the computer.
-        2. Play local against a friend.
-        3. Change the size of the board and how many rows of symbol that are required for a win.
+        1. Play against the computer. 💻
+        2. Play local against a friend. 😎
         """);
-
-        menuUserChoice = sc.nextInt();
-        switchInstance.runSwitch(menuUserChoice); //runs the switch that is made within the Menu.java class.
-
+        boolean invalidInput = true;
+        while (invalidInput) {
+                    try {
+                        menuUserChoice = sc.nextInt();
+                        switchInstance.runSwitch(menuUserChoice); //runs the switch that is made within the Menu.java class.
+                        invalidInput = false;
+                    } catch (InputMismatchException inputExc) {
+                        System.out.println("Invalid input, try again with either number \"1\" or number \"2\"");
+                        sc.next();
+                    }
+                }
     }
 }
