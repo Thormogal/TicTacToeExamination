@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Game {
 
     private GameBoard board;
-    private final String player1Name;
-    private final String player2Name;
+    public final String player1Name;
+    public final String player2Name;
     private char player1Symbol;
     private final char player2Symbol;
     private char currentPlayer;

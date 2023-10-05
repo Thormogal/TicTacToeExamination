@@ -42,6 +42,9 @@ public class Menu {
                                 if (game.isBoardFull()) {
                                     System.out.println(game.getBoardLayout());
                                     System.out.println("Game over! It's a draw.");
+                                    System.out.println(game.player1Name + " has won " + game.getNumberOfWins() +
+                                      "\n" +    game.player2Name + " has won " + game.getNumberOfWins());
+                                    game.resetBoard();
                                     break;
                                 }
                                 game.switchPlayer();
