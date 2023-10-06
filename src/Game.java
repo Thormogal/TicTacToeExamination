@@ -3,31 +3,38 @@ import java.util.Scanner;
 public class Game {
 
     private GameBoard board;
-    public final String player1Name;
-    public final String player2Name;
-    private char player1Symbol;
-    private final char player2Symbol;
-    private char currentPlayer;
+    private Player player1;
+    private final Player player2;
+    private Player currentPlayer;
     public void resetBoard() {
         board = new GameBoard();
     }
-    private int increasePoints = 0;
-    public void increasePoints() {
-        this.increasePoints++;
-    }
-    public int getNumberOfWins() {
-        return this.increasePoints;
-    }
 
-    public char getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
     public String getCurrentPlayerName() {
-        if (currentPlayer == player1Symbol) {
-            return player1Name;
+        if (currentPlayer == player1) {
+            return player1.getName();
         } else {
-            return player2Name;
+            return player2.getName();
+        }
+    }
+
+    public Player getOtherPlayer() {
+        if (currentPlayer == player1) {
+            return player2;
+        } else {
+            return player1;
+        }
+    }
+
+    public String getOtherPlayerName() {
+        if (currentPlayer == player1) {
+            return player2.getName();
+        } else {
+            return player1.getName();
         }
     }
 
@@ -44,9 +51,9 @@ public class Game {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter name for player 1:");
-        player1Name = sc.nextLine();
+        String player1Name = sc.nextLine();
         System.out.println("Hello " + player1Name + ". Pick a symbol (X or O):");
-        player1Symbol = ' ';
+        char player1Symbol = ' ';
         boolean validInput = false;
         while (!validInput) {
             String input = sc.nextLine().replace(" ", "").toUpperCase();
@@ -56,18 +63,19 @@ public class Game {
                 player1Symbol = input.charAt(0);
                 validInput = true;
             }
-            currentPlayer = player1Symbol;
+            player1 = new Player(player1Name, player1Symbol);
+            currentPlayer = player1;
         }
 
         System.out.println("Enter name for player 2:");
-        player2Name = sc.nextLine();
-
-
-        if (player1Symbol == 'X') {
+        String player2Name = sc.nextLine();
+        char player2Symbol;
+        if (player1.getSymbol() == 'X') {
             player2Symbol = 'O';
         } else {
             player2Symbol = 'X';
         }
+        player2 = new Player (player2Name, player2Symbol);
     }
 
     public boolean makeMove(int row, int col) {
@@ -78,20 +86,20 @@ public class Game {
             System.out.println("The tile is already occupied. Try again");
             return false;
         } else {
-            board.setMove(row, col, currentPlayer);
+            board.setMove(row, col, currentPlayer.getSymbol());
             return true;
         }
     }
 
     public void switchPlayer() {
-        if (currentPlayer == player1Symbol) {
-            currentPlayer = player2Symbol;
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
         } else {
-            currentPlayer = player1Symbol;
+            currentPlayer = player1;
         }
     }
 
     public boolean hasPlayerWon() {
-        return board.hasPlayerWon(currentPlayer);
+        return board.hasPlayerWon(currentPlayer.getSymbol());
     }
 }

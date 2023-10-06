@@ -19,7 +19,6 @@ public class GameBoard {
         updateBoardLayout();
     }
 
-    //Code to check if the tile is empty.
     public boolean isTileEmpty(int row, int col) {
         return board[row][col] != ' '; // ' ' represents an empty tile aka whitespace.
     }

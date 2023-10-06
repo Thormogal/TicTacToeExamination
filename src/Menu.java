@@ -31,25 +31,29 @@ public class Menu {
 
                                 if (game.hasPlayerWon()) {
                                     System.out.println(game.getBoardLayout());
-                                    game.increasePoints();
+                                    game.getCurrentPlayer().increasePoints();
                                     System.out.println("Game finished! The winner is: \uD83C\uDF89" +
                                             game.getCurrentPlayerName()
-                                            + "\uD83C\uDF89 and his " + game.getCurrentPlayer() +
-                                            ". They have now won " + game.getNumberOfWins() + " times!");
+                                            + "\uD83C\uDF89 and his " + game.getCurrentPlayer().getSymbol() +
+                                            ". They have now won " + game.getCurrentPlayer().getNumberOfWins()
+                                            + " times!");
+
                                     game.resetBoard();
                                     break;
                                 }
                                 if (game.isBoardFull()) {
                                     System.out.println(game.getBoardLayout());
                                     System.out.println("Game over! It's a draw.");
-                                    System.out.println(game.player1Name + " has won " + game.getNumberOfWins() +
-                                      "\n" +    game.player2Name + " has won " + game.getNumberOfWins());
+                                    System.out.println(game.getCurrentPlayerName() + " has won " +
+                                            game.getCurrentPlayer().getNumberOfWins() + "." +
+                                      "\n" +    game.getOtherPlayerName() + " has won " +
+                                            game.getOtherPlayer().getNumberOfWins() + ".");
                                     game.resetBoard();
                                     break;
                                 }
                                 game.switchPlayer();
                             } catch (InputMismatchException inputExc) {
-                                System.out.println("Invalid input, try again");
+                                System.out.println("Invalid input, try again.");
                                 sc.nextLine();
                             }
                         }
