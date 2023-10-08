@@ -19,6 +19,16 @@ public class GameBoard {
         updateBoardLayout();
     }
 
+    /*  A method to implement a player's character placement in the board.
+        If the player types in "1, 1, X" it puts an X on row 1, column 1.
+        The code then updates the board to the current condition with the X placed
+        instead of an empty tile.
+    */
+    public void setMove(int row, int col, char player) {
+        board[row][col] = player;
+        updateBoardLayout();
+    }
+
     public boolean isTileEmpty(int row, int col) {
         return board[row][col] != ' '; // ' ' represents an empty tile aka whitespace.
     }
@@ -35,25 +45,16 @@ public class GameBoard {
         return true;
     }
 
-    /*  A method to implement a player's character placement in the board.
-        If the player types in "1, 1, X" it puts an X on row 1, column 1.
-        The code then updates the board to the current condition with the X placed
-        instead of an empty tile.
-    */
-    public void setMove(int row, int col, char player) {
-        board[row][col] = player;
-        updateBoardLayout();
-    }
-
     /*The code used to produce a board.
     The first loop checks the rows and the second loop inside the first one checks the columns.
     "board [i][j]" tells the program if it is X, O or empty cell.
     */
     public void updateBoardLayout() {
-        boardLayout = "             ______ ______ ______\n";
+        boardLayout = "\n               A      B      C\n";
+        boardLayout += "             ______ ______ ______\n";
         for (int i = 0; i < 3; i++) {
             boardLayout += "            |      |      |      |\n";
-            boardLayout += "            |";
+            boardLayout += "          " + (i+1) + " |";
             for (int j = 0; j < 3; j++) {
                 boardLayout += "  " + board[i][j] + "   |";
             }
@@ -70,11 +71,10 @@ public class GameBoard {
     //and fourth from top right to bottom left.
     public boolean hasPlayerWon(char player) {
         for (int i = 0; i < 3; i++) {
-            if (checkThree(player, i, 0, i, 1, i, 2)) {
+            if (checkThree(player, 0, i, 1, i, 2, i)) {
                 return true;
             }
-
-            if (checkThree(player, 0, i, 1, i, 2, i)) {
+            if (checkThree(player, i, 0, i, 1, i, 2)) {
                 return true;
             }
         }

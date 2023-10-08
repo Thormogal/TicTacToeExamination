@@ -25,10 +25,18 @@ public class Main {
         while (invalidInput) {
             try {
                 menuUserChoice = sc.nextInt();
-                switchInstance.runSwitch(menuUserChoice); //runs the switch that is made within the Menu.java class.
-                invalidInput = false;
+                if (menuUserChoice == 1 || menuUserChoice == 2) {
+                    switchInstance.runSwitch(menuUserChoice); //runs the switch that is made within the Menu.java class.
+                    invalidInput = false;
+                } else {
+                    System.out.println("You can't fool me. This program only works" +
+                            " with number \"1\" or number \"2\"." + "\nPlease pick number 1 or 2: ");
+                }
             } catch (InputMismatchException inputExc) {
-                System.out.println("Invalid input, try again with either number \"1\" or number \"2\"");
+                System.out.println("""
+                        Expecting an error did you?
+                        Try again with either number "1" or number "2".
+                        Please pick number 1 or 2:""");
                 sc.next();
             }
         }

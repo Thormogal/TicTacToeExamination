@@ -24,5 +24,11 @@ public class Player {
     public int getNumberOfWins() {
         return this.points;
     }
-
+    public String getWinningTimesText() {
+        if (this.getNumberOfWins() == 1) {
+            return "time";
+        } else {
+            return "times";
+        }
+    }
 }

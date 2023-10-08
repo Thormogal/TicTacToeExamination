@@ -3,9 +3,10 @@ import java.util.Scanner;
 public class Game {
 
     private GameBoard board;
-    private Player player1;
+    private final Player player1;
     private final Player player2;
     private Player currentPlayer;
+
     public void resetBoard() {
         board = new GameBoard();
     }
@@ -53,34 +54,32 @@ public class Game {
         System.out.println("Enter name for player 1:");
         String player1Name = sc.nextLine();
         System.out.println("Hello " + player1Name + ". Pick a symbol (X or O):");
-        char player1Symbol = ' ';
-        boolean validInput = false;
-        while (!validInput) {
-            String input = sc.nextLine().replace(" ", "").toUpperCase();
-            if (input.length() > 1 || (input.charAt(0) != 'X' && input.charAt(0) != 'O')) {
-                System.out.println("The only valid symbols are \"X\" and \"O\". Try again.");
-            } else {
-                player1Symbol = input.charAt(0);
-                validInput = true;
+        while (true) {
+            String input = sc.nextLine().toUpperCase();
+            if (input.isEmpty()) {
+                System.out.println("Empty input, empty brain. \nThis almost rhymes, try again.");
             }
-            player1 = new Player(player1Name, player1Symbol);
-            currentPlayer = player1;
+            else if (input.charAt(0) != 'X' && input.charAt(0) != 'O') {
+                System.out.println("The only valid symbols are solely \"X\" and \"O\". Try again.");
+            }
+            else {
+                char player1Symbol = input.charAt(0);
+                player1 = new Player(player1Name, player1Symbol);
+                currentPlayer = player1;
+                break;
+            }
         }
 
         System.out.println("Enter name for player 2:");
         String player2Name = sc.nextLine();
-        char player2Symbol;
-        if (player1.getSymbol() == 'X') {
-            player2Symbol = 'O';
-        } else {
-            player2Symbol = 'X';
-        }
-        player2 = new Player (player2Name, player2Symbol);
+        char player2Symbol = (player1.getSymbol() == 'X') ? 'O' : 'X';
+        player2 = new Player(player2Name, player2Symbol);
     }
 
     public boolean makeMove(int row, int col) {
-        if (row < 0 || row > 2 || col < 0 || col > 2) {
-            System.out.println("Invalid move. Row and column values must be between 0 and 2. Pick again.");
+        if (col < 0 || col > 2 || row < 0 || row > 2) {
+            System.out.println("Invalid move. Row values must be 1 to 3 " +
+                    "and column values must be A to C. Pick again.");
             return false;
         } else if (board.isTileEmpty(row, col)) {
             System.out.println("The tile is already occupied. Try again");
