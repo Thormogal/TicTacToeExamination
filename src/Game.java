@@ -72,21 +72,29 @@ public class Game {
 
         System.out.println("Enter name for player 2:");
         String player2Name = sc.nextLine();
+        if (player2Name.equalsIgnoreCase(player1Name)) {
+            player2Name = player2Name.concat(" 2");
+            System.out.println("Identical name. Second player is now: " + player2Name);
+        }
         char player2Symbol = (player1.getSymbol() == 'X') ? 'O' : 'X';
         player2 = new Player(player2Name, player2Symbol);
     }
 
     public boolean makeMove(int row, int col) {
-        if (col < 0 || col > 2 || row < 0 || row > 2) {
-            System.out.println("Invalid move. Row values must be 1 to 3 " +
-                    "and column values must be A to C. Pick again.");
-            return false;
-        } else if (board.isTileEmpty(row, col)) {
-            System.out.println("The tile is already occupied. Try again");
-            return false;
-        } else {
-            board.setMove(row, col, currentPlayer.getSymbol());
+        if (row == 666 || col == 666) {
             return true;
+        } else {
+            if (col < 0 || col > 2 || row < 0 || row > 2) {
+                System.out.println("Invalid move. Row values must be 1 to 3 " +
+                        "and column values must be A to C. Pick again.");
+                return false;
+            } else if (board.isTileEmpty(row, col)) {
+                System.out.println("The tile is already occupied. Try again");
+                return false;
+            } else {
+                board.setMove(row, col, currentPlayer.getSymbol());
+                return true;
+            }
         }
     }
 

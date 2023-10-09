@@ -14,15 +14,33 @@ public class Menu {
                 case 2 -> {
                     boolean isRunning = true;
                     Game game = new Game();
+
                     do {
                         while (isRunning) {
+                            System.out.println("(Quit? Type \"666\")");
                             System.out.println(game.getBoardLayout());
 
                             try {
                                 System.out.print(game.getCurrentPlayerName() + ": Enter your move (e.g. '1A'): ");
                                 String move = sc.next().toUpperCase();
 
-                                if (move.equalsIgnoreCase("Quit")) {
+
+                                int row;
+                                int col;
+                                if (move.equalsIgnoreCase("666")) {
+                                    row = 666;
+                                    col = 666;
+                                } else {
+                                    row = Character.getNumericValue(move.charAt(0)) - 1;
+                                    char column = move.charAt(1);
+                                    col = (int) column - 'A';
+                                }
+
+                                if (!game.makeMove(row, col)) {
+                                    continue;
+                                }
+
+                                if (move.equalsIgnoreCase("666")) {
                                     isRunning = false;
                                     if (game.getCurrentPlayer().getNumberOfWins()
                                             > game.getOtherPlayer().getNumberOfWins()) {
@@ -30,17 +48,9 @@ public class Menu {
                                         + "\nAnd the winner of the whole session is...." + "\n\uD83C\uDF1F"
                                         + game.getCurrentPlayerName() + "\uD83C\uDF1F with "
                                         + game.getCurrentPlayer().getNumberOfWins() + " points! Congratulations!\n" +
-                                        game.getOtherPlayerName() + " got in second place with " +
+                                        game.getOtherPlayerName() + " placed second with " +
                                         game.getOtherPlayer().getNumberOfWins() + " points. Well done!");
                                     }
-                                }
-
-                                int row = Character.getNumericValue(move.charAt(0)) - 1;
-                                char column = move.charAt(1);
-
-                                int col = (int) column - 'A'; //
-                                if (!game.makeMove(row, col)) {
-                                    continue;
                                 }
 
                                 if (game.hasPlayerWon()) {
@@ -52,7 +62,7 @@ public class Menu {
                                             ". They have now won " + game.getCurrentPlayer().getNumberOfWins()
                                             + " " + game.getCurrentPlayer().getWinningTimesText() + "!"
                                             + "\n" + game.getOtherPlayerName() + " sits with "
-                                            + game.getOtherPlayer().getNumberOfWins() + " points so far");
+                                            + game.getOtherPlayer().getNumberOfWins() + " points so far.");
 
                                     game.resetBoard();
                                     break;
