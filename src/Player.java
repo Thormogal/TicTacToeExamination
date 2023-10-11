@@ -1,16 +1,12 @@
 public class Player {
     private final String name;
     private final char symbol;
-    private int points;
-
-    public boolean isComputer() {
-        return false;
-    }
+    private int wins;
 
     public Player(String name, char symbol) {
         this.name = name;
         this.symbol = symbol;
-        this.points = 0;
+        this.wins = 0;
     }
 
     public String getName() {
@@ -21,12 +17,12 @@ public class Player {
         return symbol;
     }
 
-    public void increasePoints() {
-        this.points++;
+    public void increaseWins() {
+        this.wins++;
     }
 
     public int getNumberOfWins() {
-        return this.points;
+        return this.wins;
     }
 
     public String getWinningTimesText() {
