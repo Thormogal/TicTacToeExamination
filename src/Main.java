@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -24,20 +23,20 @@ public class Main {
         boolean invalidInput = true;
         while (invalidInput) {
             try {
-                menuUserChoice = sc.nextInt();
+                String userInput = sc.nextLine();
+                menuUserChoice = Integer.parseInt(userInput);
                 if (menuUserChoice == 1 || menuUserChoice == 2) {
-                    switchInstance.runSwitch(menuUserChoice); //runs the switch that is made within the Menu.java class.
+                    switchInstance.runSwitch(menuUserChoice);
                     invalidInput = false;
                 } else {
-                    System.out.println("You can't fool me. This program only works" +
-                            " with number \"1\" or number \"2\"." + "\nPlease pick number 1 or 2: ");
+                    System.out.println("I knew you'd be a rebel. This program only works" +
+                            " with number \"1\" or number \"2\"." + "\nSo, 1: (play against computer) or 2: (friend)? ");
                 }
-            } catch (InputMismatchException inputExc) {
+            } catch (NumberFormatException inputExc) {
                 System.out.println("""
-                        Expecting an error did you?
-                        Try again with either number "1" or number "2".
-                        Please pick number 1 or 2:""");
-                sc.next();
+            No error here.
+            Try again with either number "1" or number "2".
+            So, 1: (play against computer) or 2: (friend)""");
             }
         }
     }

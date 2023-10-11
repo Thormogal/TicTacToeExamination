@@ -88,7 +88,7 @@ public class Game {
                 System.out.println("Invalid move. Row values must be 1 to 3 " +
                         "and column values must be A to C. Pick again.");
                 return false;
-            } else if (board.isTileEmpty(row, col)) {
+            } else if (board.isTileOccupied(row, col)) {
                 System.out.println("The tile is already occupied. Try again");
                 return false;
             } else {

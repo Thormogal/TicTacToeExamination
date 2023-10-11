@@ -3,6 +3,10 @@ public class Player {
     private final char symbol;
     private int points;
 
+    public boolean isComputer() {
+        return false;
+    }
+
     public Player(String name, char symbol) {
         this.name = name;
         this.symbol = symbol;
@@ -24,6 +28,7 @@ public class Player {
     public int getNumberOfWins() {
         return this.points;
     }
+
     public String getWinningTimesText() {
         if (this.getNumberOfWins() == 1) {
             return "time";

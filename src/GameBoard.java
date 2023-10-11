@@ -29,7 +29,7 @@ public class GameBoard {
         updateBoardLayout();
     }
 
-    public boolean isTileEmpty(int row, int col) {
+    public boolean isTileOccupied(int row, int col) {
         return board[row][col] != ' '; // ' ' represents an empty tile aka whitespace.
     }
 
