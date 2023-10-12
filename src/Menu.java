@@ -21,9 +21,21 @@ public class Menu {
                             int row, col;
                             try {
                                 if (game.getCurrentPlayer() instanceof ComputerPlayer) {
-                                    row = 0;
-                                    col = 0;
-                                    game.makeMove(row, col);
+                                    game.makeMove(0, 0);
+                                    if (game.hasPlayerWon()) {
+                                        System.out.println(game.getBoardLayout());
+                                        game.getCurrentPlayer().increaseWins();
+                                        System.out.println(game.getCurrentPlayerName() + " has won");
+                                        System.out.println("Round finished! The winner is: \uD83C\uDF89" +
+                                                game.getCurrentPlayerName()
+                                                + "\uD83C\uDF89 and his " + game.getCurrentPlayer().getSymbol() +
+                                                ". They have now won " + game.getCurrentPlayer().getNumberOfWins()
+                                                + " " + game.getCurrentPlayer().getWinningTimesText() + "!"
+                                                + "\n" + game.getOtherPlayerName() + " sits with "
+                                                + game.getOtherPlayer().getNumberOfWins() + " points so far.");
+                                        game.resetBoard();
+                                        break;
+                                    }
 
                                 } else {
                                     System.out.println(game.getCurrentPlayerName() + ": Enter your move (e.g. \"1A\")");
@@ -32,7 +44,7 @@ public class Menu {
                                     if (move.equalsIgnoreCase("666")) {
                                         row = 666;
                                         col = 666;
-                                    } else {
+                                    } else { //changes a string input to an int input through ASCII values.
                                         row = Character.getNumericValue(move.charAt(0)) - 1;
                                         char column = move.charAt(1);
                                         col = (int) column - 'A';

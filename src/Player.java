@@ -17,12 +17,12 @@ public class Player {
         return symbol;
     }
 
-    public void increaseWins() {
-        this.wins++;
-    }
-
     public int getNumberOfWins() {
         return this.wins;
+    }
+
+    public void increaseWins() {
+        this.wins++;
     }
 
     public String getWinningTimesText() {

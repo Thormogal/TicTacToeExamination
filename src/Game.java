@@ -12,44 +12,12 @@ public class Game {
         board = new GameBoard();
     }
 
-    public void resetBoard() {
-        board = new GameBoard();
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public String getCurrentPlayerName() {
-        if (currentPlayer == player1) {
-            return player1.getName();
-        } else {
-            return player2.getName();
-        }
-    }
-
-    public Player getOtherPlayer() {
-        if (currentPlayer == player1) {
-            return player2;
-        } else {
-            return player1;
-        }
-    }
-
-    public String getOtherPlayerName() {
-        if (currentPlayer == player1) {
-            return player2.getName();
-        } else {
-            return player1.getName();
-        }
-    }
-
     public String getBoardLayout() {
         return board.getBoardLayout();
     }
 
-    public boolean isBoardFull() {
-        return board.isBoardFull();
+    public void resetBoard() {
+        board = new GameBoard();
     }
 
     public void CreatePlayers(boolean againstComputer) {
@@ -88,16 +56,43 @@ public class Game {
         }
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public String getCurrentPlayerName() {
+        if (currentPlayer == player1) {
+            return player1.getName();
+        } else {
+            return player2.getName();
+        }
+    }
+
+    public Player getOtherPlayer() {
+        if (currentPlayer == player1) {
+            return player2;
+        } else {
+            return player1;
+        }
+    }
+
+    public String getOtherPlayerName() {
+        if (currentPlayer == player1) {
+            return player2.getName();
+        } else {
+            return player1.getName();
+        }
+    }
 
     public boolean makeMove(int row, int col) {
-            if (currentPlayer instanceof ComputerPlayer) {
-                do {
-                    row = new Random().nextInt(3);
-                    col = new Random().nextInt(3);
-                } while (board.isTileOccupied(row, col));
-                board.setMove(row, col, currentPlayer.getSymbol());
-                return true;
-            }
+        if (currentPlayer instanceof ComputerPlayer) {
+            do {
+                row = new Random().nextInt(3);
+                col = new Random().nextInt(3);
+            } while (board.isTileOccupied(row, col));
+            board.setMove(row, col, currentPlayer.getSymbol());
+            return true;
+        }
         if (row == 666 || col == 666) {
             return true;
         } else {
@@ -120,6 +115,10 @@ public class Game {
         } else {
             currentPlayer = player1;
         }
+    }
+
+    public boolean isBoardFull() {
+        return board.isBoardFull();
     }
 
     public boolean hasPlayerWon() {
